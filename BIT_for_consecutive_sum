@@ -1,0 +1,64 @@
+//Problem: https://code.google.com/codejam/contest/32015/dashboard#s=p2&a=2
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define MOD 1000000007
+ll i, t, _t, arr[1000005], a[1000005], b[1000005], dp[1000005], x, y, z, n, m, j, sum;
+ll bit[1000005];
+void add(ll y, ll val)
+{
+    while(y<=500001)
+    {
+        bit[y]+=val;
+        bit[y] %= MOD;
+        y+=(y & -y);
+        //cout<<y<<endl;
+    }
+}
+ll get_sum(ll y)
+{
+    ll res=0;
+    while(y>0)
+    {
+        res+=bit[y];
+        res %= MOD;
+        y-=(y & -y);
+        //cout<<y<<endl;
+    }
+    return res;
+}
+int main() {
+    cin>>t;
+    for(_t = 1; _t <= t; _t++) {
+        cin>>n>>m>>x>>y>>z;
+        for(i = 0; i < m; i++) {
+            cin>>arr[i];
+        }
+        for(i = 0; i < n; i++) {
+            a[i] = arr[i%m];
+            b[i] = arr[i%m];
+            arr[i%m] = (x*arr[i%m] + y*(i+1))%z;
+        }
+        memset(bit, 0, sizeof bit);
+        sum = 0;
+        sort(b, b+n);
+        //cout<<endl;
+        for(i = 0; i < n; i++) {
+            a[i] = lower_bound(b, b+n, a[i])-b;
+            a[i]++;
+        }
+        //cout<<endl;
+        for(i = 0; i < n; i++) {
+            ll val = 1 + get_sum(a[i]-1);
+            add(a[i], val);
+            sum += val;
+            sum %= MOD;
+        }
+        printf("Case #%lld: %lld\n", _t, sum);
+
+    }
+
+    return 0;
+}
+
+
