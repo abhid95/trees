@@ -42,45 +42,4 @@ ll lca(ll p,ll q){
 	return f[p][0];
 
 }
-
-int main() {
-    clock_t tStart = clock();
-    cin>>n>>q;
-    for(i = 2; i <= n; i++) {
-        cin>>x;
-        g[x].push_back(i);
-    }
-    dfs(1);
-    for(i = 0; i < n; i++) {
-        mp[v[i]] = i;
-    }
-    level[1]=1;
-    dfs2(1, n);
-    for(ii = 0; ii < q; ii++) {
-        cin>>k;
-        mn = 1e6;
-        mx = 0;
-        for(i = 0; i < k; i++) {
-            cin>>arr[i];
-            mn = min(mn, mp[arr[i]]);
-            mx = max(mx, mp[arr[i]]);
-        }
-        a = v[mn];
-        b = v[mx];
-        //cout<<a<<" "<<b<<endl;
-        ll an1,an2,an3;
-		an1=lca(1,a);
-		an2=lca(1,b);
-		an3=lca(a,b);
-		if(an1==an2)
-            printf("%lld\n",an3);
-		else if(an1==an3)
-            printf("%lld\n",an2);
-		else
-            printf("%lld\n",an1);
-        printf("\nTime taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
-    }
-
-
-    return 0;
-}
+level[1] = 1;
